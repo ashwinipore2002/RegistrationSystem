@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="registration-container">
+        <h2>Register</h2>
+        <form id="registrationForm">
+            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+            <input type="text" id="mobileNumber" placeholder="Mobile Number" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <div class="social-login">
+            <p>Or login with:</p>
+            <button class="google">Login by Google</button>
+            <button class="facebook">Login by Facebook</button>
+            <button class="apple">Login by Apple ID</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                mobileNumber: document.getElementById('mobileNumber').value,
+                password: document.getElementById('password').value
+            };
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            if (response.ok) {
+                alert('Registration successful!');
+                window.location.href = '/login.html';
+            } else {
+                alert('Registration failed. Try again.');
+            }
+        });
+    </script>
+</body>
+</html>
